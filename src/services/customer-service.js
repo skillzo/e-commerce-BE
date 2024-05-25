@@ -6,7 +6,11 @@ const {
   GenerateSignature,
   ValidatePassword,
 } = require("../utils");
-const { APIError, BadRequestError } = require("../utils/app-errors");
+const {
+  APIError,
+  BadRequestError,
+  STATUS_CODES,
+} = require("../utils/app-errors");
 
 // All Business logic will be here
 
@@ -17,9 +21,6 @@ class CustomerService {
 
   async SignIn(userInputs) {
     const { email, password } = userInputs;
-
-    console.log("user details", userInputs);
-
     try {
       const existingCustomer = await this.repository.FindCustomer({ email });
 
@@ -47,25 +48,29 @@ class CustomerService {
 
   async SignUp(userInputs) {
     const { email, password, phone } = userInputs;
+    const existingCustomer = await this.repository.FindCustomer({ email });
+
+    if (existingCustomer) {
+      throw new APIError(
+        "Conflict Error",
+        STATUS_CODES.CONFLICT,
+        "Email already taken"
+      );
+    }
 
     try {
-      // create salt
       let salt = await GenerateSalt();
-
       let userPassword = await GeneratePassword(password, salt);
-
       const existingCustomer = await this.repository.CreateCustomer({
         email,
         password: userPassword,
         phone,
         salt,
       });
-
       const token = await GenerateSignature({
         email: email,
         _id: existingCustomer._id,
       });
-
       return FormateData({ id: existingCustomer._id, token });
     } catch (err) {
       throw new APIError("Data Not found", err);

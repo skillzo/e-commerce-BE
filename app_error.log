@@ -1,2 +1,5 @@
 {"level":"error","message":"Fri May 24 2024 17:06:44 GMT+0100 (West Africa Standard Time)-{\"name\":\"Data Not found\",\"statusCode\":500,\"isOperational\":true}","private":true}
 {"level":"error","message":"Fri May 24 2024 17:06:44 GMT+0100 (West Africa Standard Time)-{\"name\":\"Data Not found\",\"statusCode\":500,\"isOperational\":true}","private":true}
+{"level":"error","message":"Sat May 25 2024 07:47:48 GMT+0100 (West Africa Standard Time)-{}","private":true}
+{"level":"error","message":"Sat May 25 2024 07:59:22 GMT+0100 (West Africa Standard Time)-{\"name\":\"Conflict Error\",\"statusCode\":409,\"isOperational\":true}","private":true}
+{"level":"error","message":"Sat May 25 2024 09:05:11 GMT+0100 (West Africa Standard Time)-{\"name\":\"Conflict Error\",\"statusCode\":409,\"isOperational\":true}","private":true}
