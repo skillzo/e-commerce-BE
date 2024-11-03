@@ -61,7 +61,7 @@ class CustomerService {
     try {
       let salt = await GenerateSalt();
       let userPassword = await GeneratePassword(password, salt);
-      const existingCustomer = await this.repository.CreateCustomer({
+      const newUser = await this.repository.CreateCustomer({
         email,
         password: userPassword,
         phone,
@@ -69,9 +69,9 @@ class CustomerService {
       });
       const token = await GenerateSignature({
         email: email,
-        _id: existingCustomer._id,
+        _id: newUser._id,
       });
-      return FormateData({ id: existingCustomer._id, token });
+      return FormateData({ id: newUser._id, token });
     } catch (err) {
       throw new APIError("Data Not found", err);
     }
